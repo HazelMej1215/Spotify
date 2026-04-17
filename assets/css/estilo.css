@@ -8,74 +8,133 @@
 body {
     background-color: #121212;
     color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: radial-gradient(circle at 20% 50%, #1a3a2a 0%, #121212 60%);
 }
 
 /* LOGIN */
 .contenedor-login {
-    width: 400px;
-    margin: 100px auto;
-    background: #1e1e1e;
-    padding: 40px;
-    border-radius: 12px;
+    width: 420px;
+    background: #181818;
+    padding: 50px 40px;
+    border-radius: 16px;
     text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    border: 1px solid #282828;
+}
+
+.contenedor-login .logo {
+    font-size: 42px;
+    margin-bottom: 8px;
 }
 
 .contenedor-login h1 {
     color: #1db954;
+    margin-bottom: 6px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.contenedor-login p.subtitulo {
+    color: #aaa;
+    font-size: 14px;
     margin-bottom: 30px;
-    font-size: 28px;
 }
 
 .contenedor-login input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: none;
-    background: #2a2a2a;
+    padding: 14px 16px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #242424;
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
+    transition: border 0.3s;
+    outline: none;
+}
+
+.contenedor-login input:focus {
+    border-color: #1db954;
+}
+
+.contenedor-login input::placeholder {
+    color: #666;
 }
 
 .contenedor-login button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     margin-top: 20px;
     background: #1db954;
-    color: #fff;
+    color: #000;
     border: none;
-    border-radius: 25px;
-    font-size: 16px;
+    border-radius: 50px;
+    font-size: 15px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s;
 }
 
 .contenedor-login button:hover {
-    background: #17a349;
+    background: #1ed760;
+    transform: scale(1.02);
 }
 
-.contenedor-login p {
-    margin-top: 15px;
+.divisor {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+    color: #555;
+    font-size: 13px;
+}
+
+.divisor::before,
+.divisor::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #333;
+    margin: 0 10px;
+}
+
+.contenedor-login .enlace-registro {
+    margin-top: 20px;
     color: #aaa;
+    font-size: 14px;
 }
 
-.contenedor-login a {
+.contenedor-login .enlace-registro a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.contenedor-login .enlace-registro a:hover {
     color: #1db954;
-    text-decoration: none;
 }
 
 .error {
-    background: #e74c3c;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
+    background: rgba(231, 76, 60, 0.15);
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
     font-size: 14px;
 }
 
 .exito {
-    background: #1db954;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
+    background: rgba(29, 185, 84, 0.15);
+    border: 1px solid #1db954;
+    color: #1db954;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
     font-size: 14px;
 }

@@ -14,18 +14,30 @@ if (isset($_SESSION['usuario'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Spotify - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Spotify - Iniciar Sesión</title>
     <link rel="stylesheet" href="assets/css/estilo.css">
 </head>
 <body>
     <div class="contenedor-login">
-        <h1>🎵 Mi Spotify</h1>
+        <div class="logo">🎵</div>
+        <h1>Mi Spotify</h1>
+        <p class="subtitulo">Inicia sesión para continuar</p>
+
+        <?php if (isset($_GET['error'])) echo "<div class='error'>" . $_GET['error'] . "</div>"; ?>
+        <?php if (isset($_GET['exito'])) echo "<div class='exito'>" . $_GET['exito'] . "</div>"; ?>
+
         <form action="procesar/login.php" method="POST">
             <input type="email" name="email" placeholder="Correo electrónico" required>
             <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit">INICIAR SESIÓN</button>
         </form>
-        <p>¿No tienes cuenta? <a href="registro.php">Regístrate</a></p>
+
+        <div class="divisor">o</div>
+
+        <div class="enlace-registro">
+            ¿No tienes cuenta? <a href="registro.php">Regístrate gratis</a>
+        </div>
     </div>
 </body>
 </html>
