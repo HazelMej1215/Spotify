@@ -72,3 +72,29 @@ body {
     margin-top: 80px;
     padding: 40px;
 }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .nav-usuario {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .contenedor-panel {
+        padding: 20px 16px;
+        margin-top: 120px;
+    }
+}

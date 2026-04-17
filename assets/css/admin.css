@@ -175,3 +175,42 @@
     border-radius: 6px;
     object-fit: cover;
 }
+
+/* RESPONSIVE ADMIN */
+@media (max-width: 768px) {
+    .tarjetas {
+        flex-direction: column;
+    }
+
+    .tarjeta {
+        width: 100%;
+    }
+
+    .accesos-rapidos {
+        flex-direction: column;
+    }
+
+    .btn-accion {
+        text-align: center;
+        width: 100%;
+    }
+
+    .contenedor-form {
+        padding: 20px 16px;
+    }
+
+    .tabla-admin {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* RESPONSIVE LOGIN */
+@media (max-width: 480px) {
+    .contenedor-login {
+        width: 90%;
+        margin: 40px auto;
+        padding: 30px 20px;
+    }
+}

@@ -1,0 +1,131 @@
+.subtitulo-panel {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.seccion-genero {
+    margin-bottom: 40px;
+}
+
+.seccion-genero h3 {
+    color: #1db954;
+    font-size: 18px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #282828;
+}
+
+.grid-canciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.tarjeta-cancion {
+    background: #181818;
+    border: 2px solid #282828;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.tarjeta-cancion input[type="checkbox"] {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: #1db954;
+    cursor: pointer;
+}
+
+.tarjeta-cancion:hover {
+    border-color: #1db954;
+    background: #1e1e1e;
+}
+
+.tarjeta-cancion.seleccionada {
+    border-color: #1db954;
+    background: #0d2d1a;
+}
+
+.cancion-imagen img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.sin-imagen {
+    width: 100%;
+    height: 130px;
+    background: #282828;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #555;
+}
+
+.cancion-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cancion-nombre {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cancion-autor {
+    color: #aaa;
+    font-size: 12px;
+}
+
+.cancion-duracion {
+    color: #555;
+    font-size: 11px;
+}
+
+.btn-guardar-playlist {
+    background: #1db954;
+    color: #000;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 30px 0;
+    transition: all 0.3s;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn-guardar-playlist:hover {
+    background: #1ed760;
+    transform: scale(1.02);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .grid-canciones {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-canciones {
+        grid-template-columns: 1fr 1fr;
+    }
+}
