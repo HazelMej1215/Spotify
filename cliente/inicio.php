@@ -9,28 +9,24 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'cliente') {
 
 $id_usuario = $_SESSION['id_usuario'];
 
-// Verificar si ya tiene playlist
 $playlist = mysqli_fetch_assoc(mysqli_query($conexion, 
     "SELECT * FROM playlist WHERE id_usuario = '$id_usuario' LIMIT 1"));
 
 if (!$playlist) {
-    $nombre_playlist = "Mi Playlist";
     mysqli_query($conexion, "INSERT INTO playlist (id_usuario, nombre) 
-                             VALUES ('$id_usuario', '$nombre_playlist')");
+                             VALUES ('$id_usuario', 'Mi Playlist')");
     $playlist = mysqli_fetch_assoc(mysqli_query($conexion, 
         "SELECT * FROM playlist WHERE id_usuario = '$id_usuario' LIMIT 1"));
 }
 
 $id_playlist = $playlist['id'];
 
-// Canciones en playlist del usuario
 $en_playlist = [];
 $resultado = mysqli_query($conexion, "SELECT id_cancion FROM playlist_canciones WHERE id_playlist = '$id_playlist'");
 while ($fila = mysqli_fetch_assoc($resultado)) {
     $en_playlist[] = $fila['id_cancion'];
 }
 
-// Todas las canciones agrupadas por genero
 $generos = mysqli_query($conexion, "SELECT * FROM generos ORDER BY nombre");
 ?>
 <!DOCTYPE html>
@@ -47,7 +43,7 @@ $generos = mysqli_query($conexion, "SELECT * FROM generos ORDER BY nombre");
     <nav class="navbar">
         <div class="nav-logo">Mi Spotify</div>
         <div class="nav-links">
-            <a href="inicio.php">Inicio</a>
+            <a href="inicio.php" class="activo">Inicio</a>
             <a href="playlist.php">Mi Playlist</a>
         </div>
         <div class="nav-usuario">
@@ -64,11 +60,15 @@ $generos = mysqli_query($conexion, "SELECT * FROM generos ORDER BY nombre");
             <input type="hidden" name="id_playlist" value="<?php echo $id_playlist; ?>">
 
             <?php while ($genero = mysqli_fetch_assoc($generos)):
+                // Solo canciones activas, de autores activos y albums activos
                 $canciones = mysqli_query($conexion, "SELECT c.*, au.nombre AS autor, al.nombre AS album
                              FROM canciones c
                              LEFT JOIN autores au ON c.id_autor = au.id
                              LEFT JOIN albumes al ON c.id_album = al.id
-                             WHERE c.id_genero = '{$genero['id']}'");
+                             WHERE c.id_genero = '{$genero['id']}'
+                             AND c.activo = 1
+                             AND au.activo = 1
+                             AND (al.id IS NULL OR al.activo = 1)");
                 
                 if (mysqli_num_rows($canciones) == 0) continue;
             ?>

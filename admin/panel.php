@@ -29,6 +29,7 @@ $total_usuarios  = mysqli_fetch_row(mysqli_query($conexion, "SELECT COUNT(*) FRO
             <a href="autores.php">Autores</a>
             <a href="albumes.php">Álbumes</a>
             <a href="canciones.php">Canciones</a>
+            <a href="usuarios.php">Gestion</a>
         </div>
         <div class="nav-usuario">
             <?php echo $_SESSION['usuario']; ?>

@@ -21,6 +21,7 @@ $canciones = mysqli_query($conexion, "SELECT c.*, au.nombre AS autor, g.nombre A
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canciones - Mi Spotify</title>
     <link rel="stylesheet" href="../assets/css/estilo.css">
     <link rel="stylesheet" href="../assets/css/panel.css">
@@ -34,6 +35,7 @@ $canciones = mysqli_query($conexion, "SELECT c.*, au.nombre AS autor, g.nombre A
             <a href="autores.php">Autores</a>
             <a href="albumes.php">Albums</a>
             <a href="canciones.php">Canciones</a>
+            <a href="usuarios.php">Gestion</a>
         </div>
         <div class="nav-usuario">
             <?php echo $_SESSION['usuario']; ?>
@@ -111,6 +113,7 @@ $canciones = mysqli_query($conexion, "SELECT c.*, au.nombre AS autor, g.nombre A
                     <th>Genero</th>
                     <th>Album</th>
                     <th>Duracion</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -129,6 +132,10 @@ $canciones = mysqli_query($conexion, "SELECT c.*, au.nombre AS autor, g.nombre A
                     <td><?php echo $cancion['genero']; ?></td>
                     <td><?php echo $cancion['album']; ?></td>
                     <td><?php echo $cancion['duracion']; ?></td>
+                    <td>
+                        <a href="editar_cancion.php?id=<?php echo $cancion['id']; ?>" 
+                           class="btn-toggle btn-habilitar">Editar</a>
+                    </td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>

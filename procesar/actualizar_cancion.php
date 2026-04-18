@@ -7,14 +7,18 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'admin') {
     exit();
 }
 
+$id                = (int)$_POST['id'];
 $nombre            = mysqli_real_escape_string($conexion, $_POST['nombre']);
 $id_autor          = (int)$_POST['id_autor'];
 $id_genero         = (int)$_POST['id_genero'];
 $id_album          = $_POST['id_album'] != '' ? (int)$_POST['id_album'] : null;
 $fecha_lanzamiento = mysqli_real_escape_string($conexion, $_POST['fecha_lanzamiento']);
 $duracion          = mysqli_real_escape_string($conexion, $_POST['duracion']);
-$imagen            = '';
-$archivo_mp3       = '';
+
+$cancion_actual = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT * FROM canciones WHERE id = '$id'"));
+
+$imagen      = $cancion_actual['imagen'];
+$archivo_mp3 = $cancion_actual['archivo_mp3'];
 
 if ($_FILES['imagen']['name'] != '') {
     $nombre_limpio = preg_replace("/[^a-zA-Z0-9._-]/", "_", $_FILES['imagen']['name']);
@@ -32,13 +36,21 @@ if ($_FILES['archivo_mp3']['name'] != '') {
 
 $album_sql = $id_album ? "'$id_album'" : "NULL";
 
-$sql = "INSERT INTO canciones (nombre, id_autor, id_genero, id_album, fecha_lanzamiento, duracion, imagen, archivo_mp3, activo)
-        VALUES ('$nombre', '$id_autor', '$id_genero', $album_sql, '$fecha_lanzamiento', '$duracion', '$imagen', '$archivo_mp3', 1)";
+$sql = "UPDATE canciones SET 
+        nombre = '$nombre',
+        id_autor = '$id_autor',
+        id_genero = '$id_genero',
+        id_album = $album_sql,
+        fecha_lanzamiento = '$fecha_lanzamiento',
+        duracion = '$duracion',
+        imagen = '$imagen',
+        archivo_mp3 = '$archivo_mp3'
+        WHERE id = '$id'";
 
 if (mysqli_query($conexion, $sql)) {
-    header("Location: ../admin/canciones.php?exito=Cancion guardada correctamente");
+    header("Location: ../admin/canciones.php?exito=Cancion actualizada correctamente");
 } else {
-    header("Location: ../admin/canciones.php?error=Error: " . mysqli_error($conexion));
+    header("Location: ../admin/editar_cancion.php?id=$id&error=" . mysqli_error($conexion));
 }
 exit();
 ?>

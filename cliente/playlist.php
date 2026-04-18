@@ -32,16 +32,16 @@ $canciones = mysqli_query($conexion, "SELECT c.*, au.nombre AS autor, g.nombre A
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-logo">Mi Spotify</div>
-        <div class="nav-links">
-            <a href="inicio.php">Inicio</a>
-            <a href="playlist.php">Mi Playlist</a>
-        </div>
-        <div class="nav-usuario">
-            <?php echo $_SESSION['usuario']; ?>
-            <a href="../procesar/logout.php" class="btn-logout">Cerrar Sesion</a>
-        </div>
-    </nav>
+    <div class="nav-logo">Mi Spotify</div>
+    <div class="nav-links">
+        <a href="inicio.php">Inicio</a>
+        <a href="playlist.php" class="activo">Mi Playlist</a>
+    </div>
+    <div class="nav-usuario">
+        <?php echo $_SESSION['usuario']; ?>
+        <a href="../procesar/logout.php" class="btn-logout">Cerrar Sesion</a>
+    </div>
+</nav>
 
     <div class="contenedor-panel">
         <h2>Mi Playlist</h2>

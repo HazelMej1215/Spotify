@@ -5,6 +5,11 @@
     background: #000;
     padding: 16px 30px;
     border-bottom: 1px solid #282828;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
 }
 
 .nav-logo {
@@ -12,6 +17,32 @@
     font-size: 22px;
     font-weight: 700;
     letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+}
+
+.nav-links a:hover {
+    color: #fff;
+    background: #282828;
+}
+
+.nav-links a.activo {
+    color: #1db954;
+    background: #0d2d1a;
 }
 
 .nav-usuario {
@@ -39,6 +70,7 @@
 }
 
 .contenedor-panel {
+    margin-top: 80px;
     padding: 40px;
 }
 
@@ -58,19 +90,6 @@ body {
     background-image: radial-gradient(circle at 20% 50%, #1a3a2a 0%, #121212 60%);
     min-height: 100vh;
     margin: 0;
-}
-
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-}
-
-.contenedor-panel {
-    margin-top: 80px;
-    padding: 40px;
 }
 
 /* RESPONSIVE */
