@@ -19,7 +19,7 @@ body {
     display: flex;
     flex: 1;
     overflow: hidden;
-    height: calc(100vh - 90px);
+    min-height: 0;
 }
 
 /* SIDEBAR */
@@ -98,6 +98,7 @@ body {
     overflow-y: auto;
     padding: 24px 32px;
     background: linear-gradient(180deg, #1a3a2a 0%, #121212 30%);
+    min-height: 0;
 }
 
 /* TOPBAR */
@@ -219,9 +220,7 @@ body {
     border: 2px solid transparent;
 }
 
-.tarjeta-cancion:hover {
-    background: #282828;
-}
+.tarjeta-cancion:hover { background: #282828; }
 
 .tarjeta-cancion.seleccionada {
     border-color: #1db954;
@@ -243,7 +242,6 @@ body {
     border-radius: 8px;
     object-fit: cover;
     margin-bottom: 12px;
-    background: #282828;
 }
 
 .tarjeta-imagen-placeholder {
@@ -295,9 +293,10 @@ body {
     transform: scale(1.02);
 }
 
-/* REPRODUCTOR */
+/* REPRODUCTOR — siempre al fondo del body */
 .reproductor {
     height: 90px;
+    min-height: 90px;
     background: #181818;
     border-top: 1px solid #282828;
     display: flex;
@@ -305,6 +304,8 @@ body {
     padding: 0 24px;
     gap: 16px;
     flex-shrink: 0;
+    width: 100%;
+    z-index: 999;
 }
 
 .rep-info {
@@ -379,9 +380,7 @@ body {
     padding: 4px;
 }
 
-.rep-botones button:hover {
-    color: #fff;
-}
+.rep-botones button:hover { color: #fff; }
 
 #btn-play-pause {
     background: #fff !important;
@@ -397,7 +396,6 @@ body {
 
 #btn-play-pause:hover {
     transform: scale(1.06);
-    background: #fff !important;
 }
 
 .rep-barra {
@@ -432,10 +430,7 @@ body {
     flex: 1;
 }
 
-.rep-volumen span {
-    color: #aaa;
-    font-size: 16px;
-}
+.rep-volumen span { color: #aaa; font-size: 16px; }
 
 #barra-volumen {
     width: 80px;
@@ -474,15 +469,9 @@ body {
     margin-bottom: 8px;
 }
 
-.playlist-header-info p {
-    color: #aaa;
-    font-size: 14px;
-}
+.playlist-header-info p { color: #aaa; font-size: 14px; }
 
-.lista-playlist {
-    display: flex;
-    flex-direction: column;
-}
+.lista-playlist { display: flex; flex-direction: column; }
 
 .lista-header {
     display: grid;
@@ -507,27 +496,15 @@ body {
     gap: 8px;
 }
 
-.fila-playlist:hover {
-    background: #282828;
-}
+.fila-playlist:hover { background: #282828; }
 
-.fila-playlist.activa {
-    background: #1a3a2a;
-}
+.fila-playlist.activa { background: #1a3a2a; }
 
-.fila-playlist.activa .cancion-nombre {
-    color: #1db954;
-}
+.fila-playlist.activa .cancion-nombre { color: #1db954; }
 
-.numero-cancion {
-    color: #aaa;
-    font-size: 14px;
-    text-align: center;
-}
+.numero-cancion { color: #aaa; font-size: 14px; text-align: center; }
 
-.fila-playlist.activa .numero-cancion {
-    color: #1db954;
-}
+.fila-playlist.activa .numero-cancion { color: #1db954; }
 
 .playlist-imagen img {
     width: 40px;
@@ -563,21 +540,11 @@ body {
     text-overflow: ellipsis;
 }
 
-.cancion-autor {
-    font-size: 12px;
-    color: #aaa;
-}
+.cancion-autor { font-size: 12px; color: #aaa; }
 
-.playlist-genero {
-    color: #aaa;
-    font-size: 13px;
-}
+.playlist-genero { color: #aaa; font-size: 13px; }
 
-.playlist-duracion {
-    color: #aaa;
-    font-size: 13px;
-    text-align: right;
-}
+.playlist-duracion { color: #aaa; font-size: 13px; text-align: right; }
 
 .btn-play-fila {
     background: transparent;
@@ -589,20 +556,11 @@ body {
     transition: opacity 0.2s;
 }
 
-.fila-playlist:hover .btn-play-fila {
-    opacity: 1;
-}
+.fila-playlist:hover .btn-play-fila { opacity: 1; }
 
-.playlist-vacia {
-    text-align: center;
-    padding: 80px 20px;
-}
+.playlist-vacia { text-align: center; padding: 80px 20px; }
 
-.playlist-vacia p {
-    color: #aaa;
-    font-size: 18px;
-    margin-bottom: 24px;
-}
+.playlist-vacia p { color: #aaa; font-size: 18px; margin-bottom: 24px; }
 
 .btn-verde {
     background: #1db954;
@@ -615,9 +573,7 @@ body {
     transition: all 0.3s;
 }
 
-.btn-verde:hover {
-    background: #1ed760;
-}
+.btn-verde:hover { background: #1ed760; }
 
 /* NOTIF IA */
 .notif-ia {
@@ -641,9 +597,7 @@ body {
     .main-content { padding: 16px; }
     .grid-canciones { grid-template-columns: repeat(2, 1fr); }
     .lista-header { display: none; }
-    .fila-playlist {
-        grid-template-columns: 40px 40px 1fr 60px;
-    }
+    .fila-playlist { grid-template-columns: 40px 40px 1fr 60px; }
     .playlist-genero { display: none; }
     .rep-volumen { display: none; }
     .reproductor { padding: 0 12px; }
