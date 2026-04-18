@@ -13,14 +13,6 @@ let indiceActual = -1;
 let colaIA = [];
 let modoIA = false;
 
-function mostrarReproductor() {
-    const rep = document.getElementById('reproductor');
-    if (rep) {
-        rep.style.display = 'flex';
-        rep.style.flexShrink = '0';
-    }
-}
-
 function generarColaIA(generoActual, idActual) {
     let similares = filas.filter(f =>
         f.dataset.genero === generoActual && f.dataset.id !== idActual
@@ -69,10 +61,15 @@ function cargarDatos(fila) {
     repAutor.textContent  = fila.dataset.autor;
     barraProgreso.value   = 0;
     tiempoActual.textContent = '0:00';
+    tiempoTotal.textContent  = '0:00';
 
-    if (fila.dataset.imagen) {
+    if (fila.dataset.imagen && fila.dataset.imagen.trim() !== '') {
         repImagen.src = fila.dataset.imagen;
         repImagen.style.display = 'block';
+        repImagen.style.width = '56px';
+        repImagen.style.height = '56px';
+        repImagen.style.borderRadius = '6px';
+        repImagen.style.objectFit = 'cover';
         if (repPlaceholder) repPlaceholder.style.display = 'none';
     } else {
         repImagen.style.display = 'none';
