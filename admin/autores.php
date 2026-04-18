@@ -60,6 +60,7 @@ $autores = mysqli_query($conexion, "SELECT * FROM autores ORDER BY id DESC");
                     <th>#</th>
                     <th>Imagen</th>
                     <th>Nombre</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,6 +75,9 @@ $autores = mysqli_query($conexion, "SELECT * FROM autores ORDER BY id DESC");
                         <?php endif; ?>
                     </td>
                     <td><?php echo $autor['nombre']; ?></td>
+                    <td>
+                        <a href="editar_autor.php?id=<?php echo $autor['id']; ?>" class="btn-toggle btn-habilitar">Editar</a>
+                    </td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>

@@ -77,6 +77,7 @@ $albumes = mysqli_query($conexion, "SELECT a.*, au.nombre AS autor FROM albumes 
                     <th>Nombre</th>
                     <th>Autor</th>
                     <th>Año</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,6 +94,9 @@ $albumes = mysqli_query($conexion, "SELECT a.*, au.nombre AS autor FROM albumes 
                     <td><?php echo $album['nombre']; ?></td>
                     <td><?php echo $album['autor']; ?></td>
                     <td><?php echo $album['anio']; ?></td>
+                    <td>
+                        <a href="editar_album.php?id=<?php echo $album['id']; ?>" class="btn-toggle btn-habilitar">Editar</a>
+                    </td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>
