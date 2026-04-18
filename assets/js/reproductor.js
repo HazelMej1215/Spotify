@@ -15,7 +15,10 @@ let modoIA = false;
 
 function mostrarReproductor() {
     const rep = document.getElementById('reproductor');
-    if (rep) rep.style.display = 'flex';
+    if (rep) {
+        rep.style.display = 'flex';
+        rep.style.flexShrink = '0';
+    }
 }
 
 function generarColaIA(generoActual, idActual) {

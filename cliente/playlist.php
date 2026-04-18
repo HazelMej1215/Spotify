@@ -118,7 +118,7 @@ $total = mysqli_num_rows($canciones);
     </main>
 </div>
 
-<div class="reproductor" id="reproductor" style="display:none">
+<div class="reproductor" id="reproductor" style="display:none; flex-shrink:0;">
     <div class="rep-info">
         <div class="rep-info-placeholder" id="rep-placeholder">♪</div>
         <img id="rep-imagen" src="" alt="" style="display:none">
