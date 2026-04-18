@@ -7,92 +7,76 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'cliente') {
     exit();
 }
 
-$id_usuario = $_SESSION['id_usuario'];
-$playlist   = mysqli_fetch_assoc(mysqli_query($conexion,
-    "SELECT * FROM playlist WHERE id_usuario = '$id_usuario' LIMIT 1"));
-$id_playlist = $playlist['id'];
+$id    = (int)$_GET['id'];
+$album = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT a.*, au.nombre AS autor, au.id AS id_autor
+         FROM albumes a LEFT JOIN autores au ON a.id_autor = au.id
+         WHERE a.id = '$id' AND a.activo = 1"));
 
-$canciones = mysqli_query($conexion, "SELECT c.*, au.nombre AS autor, g.nombre AS genero
-             FROM playlist_canciones pc
-             JOIN canciones c ON pc.id_cancion = c.id
-             LEFT JOIN autores au ON c.id_autor = au.id
+if (!$album) {
+    header("Location: inicio.php");
+    exit();
+}
+
+$canciones = mysqli_query($conexion, "SELECT c.*, g.nombre AS genero FROM canciones c
              LEFT JOIN generos g ON c.id_genero = g.id
-             WHERE pc.id_playlist = '$id_playlist'
-             AND c.activo = 1");
-
-$total = mysqli_num_rows($canciones);
+             WHERE c.id_album = '$id' AND c.activo = 1 ORDER BY c.id ASC");
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Playlist - Mi Spotify</title>
+    <title><?php echo $album['nombre']; ?> - Mi Spotify</title>
     <link rel="stylesheet" href="../assets/css/spotify.css">
 </head>
 <body>
-
 <div class="app-layout">
     <aside class="sidebar">
         <div class="sidebar-logo">Mi Spotify</div>
         <nav class="sidebar-menu">
-            <a href="inicio.php" class="sidebar-link">
-                <span class="icono">⊞</span> Inicio
-            </a>
-            <a href="buscar.php" class="sidebar-link">
-                <span class="icono">⌕</span> Buscar
-            </a>
-            <a href="playlist.php" class="sidebar-link activo">
-                <span class="icono">♪</span> Mi Playlist
-            </a>
+            <a href="inicio.php" class="sidebar-link"><span class="icono">⊞</span> Inicio</a>
+            <a href="buscar.php" class="sidebar-link"><span class="icono">⌕</span> Buscar</a>
+            <a href="playlist.php" class="sidebar-link"><span class="icono">♪</span> Mi Playlist</a>
         </nav>
     </aside>
 
-    <main class="main-content" style="padding:0; background: linear-gradient(180deg, #1a3a2a 0%, #121212 40%)">
-        <div style="padding: 24px 32px">
-            <div class="topbar">
-                <div class="topbar-nav">
-                    <button onclick="history.back()">‹</button>
-                    <button onclick="history.forward()">›</button>
-                </div>
-                <div class="topbar-usuario">
-                    <span><?php echo $_SESSION['usuario']; ?></span>
-                    <a href="../procesar/logout.php" class="btn-logout-top">Cerrar Sesion</a>
-                </div>
-            </div>
-
-            <?php if (isset($_GET['exito'])) echo "<div style='background:rgba(29,185,84,0.15);border:1px solid #1db954;color:#1db954;padding:12px;border-radius:8px;margin-bottom:16px;font-size:14px'>" . $_GET['exito'] . "</div>"; ?>
-
-            <div class="playlist-header">
-                <div class="playlist-header-img">♪</div>
-                <div class="playlist-header-info">
-                    <p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Playlist</p>
-                    <h1>Mi Playlist</h1>
-                    <p><?php echo $_SESSION['usuario']; ?> • <?php echo $total; ?> canciones</p>
-                </div>
-            </div>
-
-            <?php if ($total == 0): ?>
-            <div class="playlist-vacia">
-                <p>Tu playlist esta vacia</p>
-                <a href="inicio.php" class="btn-verde">Agregar canciones</a>
-            </div>
+    <main class="main-content" style="padding:0">
+        <div style="padding:32px; background: linear-gradient(180deg, #1a3a2a, #121212); display:flex; align-items:flex-end; gap:24px; min-height:220px">
+            <?php if ($album['imagen']): ?>
+                <img src="../assets/img/<?php echo $album['imagen']; ?>"
+                     style="width:160px;height:160px;border-radius:10px;object-fit:cover;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
             <?php else: ?>
+                <div style="width:160px;height:160px;border-radius:10px;background:#282828;display:flex;align-items:center;justify-content:center;font-size:60px">💿</div>
+            <?php endif; ?>
+            <div>
+                <p style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Album</p>
+                <h1 style="font-size:42px;font-weight:700;margin:8px 0"><?php echo $album['nombre']; ?></h1>
+                <p>
+                    <a href="autor.php?id=<?php echo $album['id_autor']; ?>" 
+                       style="color:#1db954;text-decoration:none;font-weight:600">
+                        <?php echo $album['autor']; ?>
+                    </a>
+                    • <?php echo $album['anio']; ?>
+                </p>
+            </div>
+        </div>
+
+        <div style="padding:32px">
+            <div class="topbar-nav" style="margin-bottom:24px">
+                <button onclick="history.back()">‹ Volver</button>
+            </div>
+
             <div class="lista-header">
-                <span>#</span>
-                <span></span>
-                <span>Titulo</span>
-                <span>Genero</span>
-                <span>Duracion</span>
-                <span></span>
+                <span>#</span><span></span><span>Titulo</span>
+                <span>Genero</span><span>Duracion</span><span></span>
             </div>
             <div class="lista-playlist">
-                <?php $n = 1; while ($c = mysqli_fetch_assoc($canciones)): ?>
+                <?php $n=1; while ($c = mysqli_fetch_assoc($canciones)): ?>
                 <div class="fila-playlist"
                      data-id="<?php echo $c['id']; ?>"
                      data-mp3="../assets/mp3/<?php echo $c['archivo_mp3']; ?>"
                      data-nombre="<?php echo htmlspecialchars($c['nombre']); ?>"
-                     data-autor="<?php echo htmlspecialchars($c['autor']); ?>"
+                     data-autor="<?php echo htmlspecialchars($album['autor']); ?>"
                      data-imagen="<?php echo $c['imagen'] ? '../assets/img/'.$c['imagen'] : ''; ?>"
                      data-genero="<?php echo $c['id_genero']; ?>">
                     <span class="numero-cancion"><?php echo $n++; ?></span>
@@ -105,7 +89,7 @@ $total = mysqli_num_rows($canciones);
                     </div>
                     <div class="playlist-info">
                         <span class="cancion-nombre"><?php echo $c['nombre']; ?></span>
-                        <span class="cancion-autor"><?php echo $c['autor']; ?></span>
+                        <span class="cancion-autor"><?php echo $album['autor']; ?></span>
                     </div>
                     <span class="playlist-genero"><?php echo $c['genero']; ?></span>
                     <span class="playlist-duracion"><?php echo $c['duracion']; ?></span>
@@ -113,7 +97,6 @@ $total = mysqli_num_rows($canciones);
                 </div>
                 <?php endwhile; ?>
             </div>
-            <?php endif; ?>
         </div>
     </main>
 </div>
